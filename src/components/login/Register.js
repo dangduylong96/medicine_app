@@ -59,6 +59,9 @@ class Register extends Component{
         this.setState({ phone: newText });
     }
     errorValidate(message){
+        this.setState({
+            modalVisible: false
+        })
         return Alert.alert(
             'Chú ý',
             message,
@@ -73,6 +76,7 @@ class Register extends Component{
             modalVisible: true
         })
         const { username, password,repassword, name, date, phone, name_medicine, address, tax_code }=this.state;
+        const {url}=this.props;
         //Kiểm tra dữ liệu
         if(username=='') return this.errorValidate('Bạn chưa nhập tên tài khoản');
         if(password=='') return this.errorValidate('Bạn chưa nhập mật khẩu');
@@ -85,7 +89,7 @@ class Register extends Component{
         if(address=='') return this.errorValidate('Bạn chưa nhập địa chỉ');
         if(tax_code=='') return this.errorValidate('Bạn chưa nhập mã số thuế');
         
-        fetch('http://10.0.3.2:90/medicine_server/register',{
+        fetch(url+'/medicine_server/register',{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -106,33 +110,17 @@ class Register extends Component{
         .then((res)=>res.json())
         .then((resjson)=>{
             if(resjson.status==200){
-                Alert.alert(
-                    'Chú ý',
-                    'Bạn đã đăng kí tài khoản thành công',
-                    [
-                      {text: 'OK'},
-                    ],
-                    { cancelable: false }
-                )
+                this.errorValidate('Bạn đã đăng kí thành công!!!');
                 this.props.navigation.navigate('loginscreen');
             }else{
-                Alert.alert(
-                    'Chú ý',
-                    'Tài khoản đã tồn tại, vui lòng chon tên đăng nhập khác',
-                    [
-                      {text: 'OK'},
-                    ],
-                    { cancelable: false }
-                )
+                this.errorValidate('Tên tài khoản đã tồn tại!!!Vui lòng chọn tên tài khoản khác');
             }
             this.setState({
                 modalVisible: false
             })
         })
         .catch((error)=>{
-            this.setState({
-                modalVisible: false
-            })
+            this.errorValidate('Có lỗi xảy ra!! Vui lòng liên hệ quản trị viên');
         })
     }
     render(){
@@ -244,8 +232,12 @@ class Register extends Component{
         )
     }
 }
-
-export default connect()(Register)
+function mapStateToProps(state){
+    return {
+        url: state.url
+    }
+}
+export default connect(mapStateToProps)(Register)
 
 var register=StyleSheet.create({
     wrapper:{

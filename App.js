@@ -4,13 +4,13 @@ import {
 } from 'react-native';
 import Store from './src/redux/Store';
 import { Provider } from 'react-redux';
-import Route from './src/components/route/Route';
+import SwitchNavigator from './src/components/route/SwitchNavigator';
 
 export default class App extends Component {
 	render() {
 		return (
 			<Provider store={Store}>
-				<Route />
+				<SwitchNavigator />
 			</Provider>
     	)
 	}

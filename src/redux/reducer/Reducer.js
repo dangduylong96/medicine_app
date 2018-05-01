@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import Test from './Test';
+import url from './UrlReducer';
 
 const Reducer= combineReducers({
-    Test: Test
+    url: url
 });
 export default Reducer;
