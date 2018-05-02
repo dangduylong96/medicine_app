@@ -1,7 +1,7 @@
-const url='http://10.0.3.2:90';
+const url='http://10.0.3.2:90/medicine_server';
 
 function apiGetToken() {
-    return fetch(url+'/medicine_server/getToken')
+    return fetch(url+'/getToken')
     .then(res => res.json())
     .then(resjson => {
         return resjson._token;

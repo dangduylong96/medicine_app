@@ -13,6 +13,7 @@ import {
     AsyncStorage 
 } from 'react-native';
 import { connect } from 'react-redux';
+import { saveToken } from '../../redux/ActionCreators';
 import apiGetToken from '../../api/GetToken';
 
 var { height, width } = Dimensions.get('window');
@@ -71,7 +72,7 @@ class Login extends Component {
         if (username == '') return this.errorValidate('Bạn chưa nhập tên tài khoản');
         if (password == '') return this.errorValidate('Bạn chưa nhập mật khẩu');
 
-        fetch(url + '/medicine_server/app-login', {
+        fetch(url + '/app-login', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -85,9 +86,13 @@ class Login extends Component {
         })
             .then((res) => res.json())
             .then((resjson) => {
+                console.log(resjson);
                 if (resjson.status == 200) {
-                    //Lưu token vào asynstorage của máy
+                    // Lưu token vào asynstorage của máy
+                    console.log(resjson._token);
                     this.save(resjson._token);
+                    //Thay đổi redux toke
+                    this.props.saveToken(resjson._token);
                     this.props.navigation.navigate('TabbarDrawer');
                 } else {
                     this.errorValidate('Tên đăng nhập hoặc mật khẩu không chính xác')
@@ -151,10 +156,11 @@ class Login extends Component {
 }
 function mapStateToProps(state) {
     return {
-        url: state.url
+        url: state.url,
+        token: state.token
     }
 }
-export default connect(mapStateToProps)(Login)
+export default connect(mapStateToProps,{saveToken: saveToken})(Login)
 
 var login = StyleSheet.create({
     wrapper: {

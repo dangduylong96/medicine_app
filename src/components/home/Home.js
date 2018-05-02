@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
 import {
     View,
-    Text,
-    TouchableOpacity
+    StyleSheet
 } from 'react-native';
+import Header from '../particle/Header';
+import ContentHome from './ContentHome';
+
 import { connect } from 'react-redux';
 class Home extends Component{
     render(){
+        const { wrapper, content }= home;
         return(
-            <View style={{backgroundColor:'red'}}>
-                <Text>Đây là trang home</Text>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('DrawerOpen')}
-                >
-                    <Text>Mở menu</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => this.clear()}
-                >
-                    <Text>Xóa token</Text>
-                </TouchableOpacity>
+            <View style={wrapper}>
+                <Header navigation={this.props.navigation} />
+                <ContentHome />
             </View>
         )
     }
 }
+var home=StyleSheet.create({
+    wrapper:{
+        flex:1
+    }
+})
 export default connect()(Home)

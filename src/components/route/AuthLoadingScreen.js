@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { saveToken } from '../../redux/ActionCreators';
 
 class AuthLoadingScreen extends Component {
   constructor(props) {
@@ -15,11 +16,12 @@ class AuthLoadingScreen extends Component {
   }
 
   _bootstrapAsync = async () => {
+    // await AsyncStorage.clear();
     const userToken = await AsyncStorage.getItem('@Mytoken');
+    if (userToken) this.props.saveToken(userToken);
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
-  // Render any loading content that you like here
   render() {
     return (
       <View style={styles.container}>
@@ -36,4 +38,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-export default connect()(AuthLoadingScreen)
+function mapStateToProps(state) {
+  return {
+    url: state.url,
+    token: state.token
+  }
+}
+export default connect(mapStateToProps, {saveToken: saveToken})(AuthLoadingScreen)

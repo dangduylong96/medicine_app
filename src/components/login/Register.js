@@ -89,7 +89,7 @@ class Register extends Component{
         if(address=='') return this.errorValidate('Bạn chưa nhập địa chỉ');
         if(tax_code=='') return this.errorValidate('Bạn chưa nhập mã số thuế');
         
-        fetch(url+'/medicine_server/register',{
+        fetch(url+'/register',{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
