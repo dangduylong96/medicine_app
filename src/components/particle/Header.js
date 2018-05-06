@@ -7,6 +7,7 @@ import {
     Image,
     Dimensions
 } from 'react-native';
+
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
 class Header extends Component{
@@ -16,7 +17,7 @@ class Header extends Component{
         return(
             <View style={wrapper}>
                 <TouchableOpacity
-                    onPress={()=>this.props.navigation.navigate('DrawerOpen')}
+                    onPress={()=>this.props.route_navigation.navigate('DrawerOpen')}
                 >
                     <Image style={icon} source={require(ic_menu)} />
                 </TouchableOpacity>
@@ -44,4 +45,9 @@ var header=StyleSheet.create({
         color:'white'
     }
 })
-export default connect()(Header)
+function mapStateToProps(state) {
+    return {
+      route_navigation: state.route_navigation
+    }
+  }
+export default connect(mapStateToProps)(Header)

@@ -12,7 +12,7 @@ class Home extends Component{
         const { wrapper, content }= home;
         return(
             <View style={wrapper}>
-                <Header navigation={this.props.navigation} />
+                <Header  />
                 <ContentHome />
             </View>
         )

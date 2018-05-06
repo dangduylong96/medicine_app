@@ -4,10 +4,10 @@ import {
   AsyncStorage,
   StatusBar,
   StyleSheet,
-  View,
+  View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { saveToken } from '../../redux/ActionCreators';
+import { saveToken, saveNavigation } from '../../redux/ActionCreators';
 
 class AuthLoadingScreen extends Component {
   constructor(props) {
@@ -17,6 +17,10 @@ class AuthLoadingScreen extends Component {
 
   _bootstrapAsync = async () => {
     // await AsyncStorage.clear();
+
+    //Lưu cái navigation
+    this.props.saveNavigation(this.props.navigation);
+
     const userToken = await AsyncStorage.getItem('@Mytoken');
     if (userToken) this.props.saveToken(userToken);
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');
@@ -41,7 +45,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     url: state.url,
-    token: state.token
+    token: state.token,
+    route_navigation: state.route_navigation
   }
 }
-export default connect(mapStateToProps, {saveToken: saveToken})(AuthLoadingScreen)
+export default connect(mapStateToProps, {saveToken: saveToken, saveNavigation: saveNavigation})(AuthLoadingScreen)

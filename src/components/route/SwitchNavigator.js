@@ -4,13 +4,12 @@ import singleStack from './SingleStack';
 import DrawerStack from './DrawerStack';
 
 export default SwitchNavigator(
-  {
-    AuthLoading: AuthLoadingScreen,
-    App: DrawerStack,
-    Auth: singleStack,
-  },
-  {
-    initialRouteName: 'AuthLoading',
-  }
+    {
+        AuthLoading: AuthLoadingScreen,
+        App: DrawerStack,
+        Auth: singleStack,
+    },
+    {
+        initialRouteName: 'AuthLoading',
+    }
 );
-// export default SwitchNavigator;
