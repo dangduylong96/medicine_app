@@ -13,6 +13,7 @@ import {
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
 import apiGetProduct from '../../api/GetProduct';
+import { setIdDetail } from '../../redux/ActionCreators';
 
 class ContentHome extends Component{
     constructor(props){
@@ -74,6 +75,10 @@ class ContentHome extends Component{
             })
         });
     }
+    goToDeatail(id){
+        this.props.setIdDetail(id);
+        this.props.route_navigation.navigate('DetailProdouctScreen',{id: '11'});
+    }
     render(){
         const { wrapper, item, image, view_image, view_detail, title_pro, cate_pro, sales_pro, action, view, addcart }= contenthome;
         const { url }= this.props;        
@@ -85,12 +90,11 @@ class ContentHome extends Component{
                     onEndReachedThreshold={0.2}
                     onEndReached={()=>this._loadmore()}
                     data={this.state.list_product}
-                    // keyExtractor={(item,index)=>toString(item.id)}
                     renderItem={(data_item)=>
                         <View style={item}>
                             <View style={view_image}>
                                 <TouchableOpacity
-                                    onPress={()=>console.log(data_item)}
+                                    onPress={()=> this.goToDeatail(data_item.item.id)}
                                 >
                                     <Image 
                                         style={image} 
@@ -208,15 +212,14 @@ var contenthome=StyleSheet.create({
         justifyContent:'center',
         color: 'white',
         borderRadius: 50,
-        // borderWidth: 1,
-        // borderColor: '#DB612A',
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     }
 })
 function mapStateToProps(state) {
     return {
         url: state.url,
-        token: state.token
+        token: state.token,
+        route_navigation: state.route_navigation
     }
 }
-export default connect(mapStateToProps)(ContentHome)
+export default connect(mapStateToProps,{setIdDetail: setIdDetail})(ContentHome)

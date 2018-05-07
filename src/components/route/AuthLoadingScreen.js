@@ -17,10 +17,10 @@ class AuthLoadingScreen extends Component {
 
   _bootstrapAsync = async () => {
     // await AsyncStorage.clear();
-
     //Lưu cái navigation
     this.props.saveNavigation(this.props.navigation);
 
+    //kiểm tra lần trc có đăng nhập hay chưa?
     const userToken = await AsyncStorage.getItem('@Mytoken');
     if (userToken) this.props.saveToken(userToken);
     this.props.navigation.navigate(userToken ? 'App' : 'Auth');

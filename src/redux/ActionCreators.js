@@ -10,3 +10,9 @@ export function saveNavigation(route_navigation){
         route_navigation: route_navigation
     }
 }
+export function setIdDetail(id){
+    return {
+        type: 'SET_ID_DETAIL',
+        id: id
+    }
+}
