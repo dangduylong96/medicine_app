@@ -10,6 +10,8 @@ import {
     ActivityIndicator,
     ScrollView
 } from 'react-native';
+import { Header } from 'react-native-elements';
+
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
 import apiGetProduct from '../../api/GetProduct';
@@ -39,11 +41,14 @@ class ContentProductDetail extends Component{
     }
     render(){
         const { wrapper, content, image, nameproduct, price, price_product, sales_product, add_cart, button }= contentproductdetail;
-        const { url }= this.props;  
+        const { url, route_navigation }= this.props;  
         return(
             <View style={wrapper}>
                 <View style={content}>
-                    
+                    <Header
+                        leftComponent={{ icon: 'arrow-back', color: '#fff', onPress: () => route_navigation.goBack()}}
+                        rightComponent={{ icon: 'shopping-cart', color: '#fff' }}
+                    />
                     <ScrollView style={{margin: 10}}>
                         <Image 
                             style={image} 
