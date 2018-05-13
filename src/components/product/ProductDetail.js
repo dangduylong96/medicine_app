@@ -5,9 +5,14 @@ import {
 } from 'react-native';
 import Header from '../particle/Header';
 import ContentProductDetail from './ContentProductDetail';
+import { saveNavigation } from '../../redux/ActionCreators';
 
 import { connect } from 'react-redux';
 class ProductDetail extends Component{
+    componentWillMount(){
+        //Cập nhập navigation
+        this.props.saveNavigation(this.props.navigation);
+    }
     render(){
         const { wrapper, content }= home;
         return(
@@ -23,4 +28,4 @@ var home=StyleSheet.create({
         flex:1
     }
 })
-export default connect()(ProductDetail)
+export default connect(null,{saveNavigation: saveNavigation})(ProductDetail)

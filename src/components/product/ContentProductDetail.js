@@ -8,57 +8,61 @@ import {
     Dimensions,
     Modal,
     ActivityIndicator,
-    ScrollView
+    ScrollView,
+    WebView
 } from 'react-native';
 import { Header } from 'react-native-elements';
+import HTML from 'react-native-render-html';
 
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
-import apiGetProduct from '../../api/GetProduct';
+import apiGetDetailProduct from '../../api/GetDetailProduct';
 
 class ContentProductDetail extends Component{
     constructor(props){
         super(props);
         this.state={
             modalVisible: false,
+            dataProduct: {}
         }
     }
     componentDidMount(){
-        let id=this.props.idDetailProduct;
-        // this.setState({
-        //     modalVisible: true
-        // })
-        // let token=this.props.token;
-        // let skip=this.state.skip;
-        // let take=this.state.take;
-        // apiGetProduct(token,skip,take)
-        // .then((res)=>{
-        //     this.setState({
-        //         list_product: res,
-        //         modalVisible: false
-        //     })
-        // })
+        let id=this.props.route_navigation.state.params.id;
+        this.setState({
+            modalVisible: true
+        })
+        let token=this.props.token;
+        let url=this.props.url;
+        apiGetDetailProduct(url,token,id)
+        .then((res)=>{
+            this.setState({
+                dataProduct: res,
+                modalVisible: false
+            })
+        })
     }
     render(){
         const { wrapper, content, image, nameproduct, price, price_product, sales_product, add_cart, button }= contentproductdetail;
         const { url, route_navigation }= this.props;  
+        const { dataProduct }=this.state;
         return(
             <View style={wrapper}>
                 <View style={content}>
                     <Header
-                        leftComponent={{ icon: 'arrow-back', color: '#fff', onPress: () => route_navigation.goBack()}}
-                        rightComponent={{ icon: 'shopping-cart', color: '#fff' }}
+                        leftComponent={{ icon: 'arrow-back', color: 'black', onPress: () => route_navigation.goBack()}}
+                        rightComponent={{ icon: 'shopping-cart', color: 'black' }}
+                        backgroundColor="white"
                     />
                     <ScrollView style={{margin: 10}}>
                         <Image 
                             style={image} 
-                            source={{uri: url+'/public/images/product/bEa35STTTG618944376037.jpg'}} 
+                            source={{uri: url+'/public/images/product/'+dataProduct.image}} 
                         />
-                        <Text style={nameproduct}>Thông Xoang Tán</Text>
-                        <Text style={price}>Loại: Đông y</Text>
-                        <Text style={price}>Giá: <Text style={price_product}>100.000 VNĐ</Text></Text>
-                        <Text style={price}>Giảm giá: <Text style={sales_product}>100.000 VNĐ</Text></Text>
-                        <Text>MÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢMÔ TẢ</Text>
+                        <Text style={nameproduct}>{dataProduct.name}</Text>
+                        <Text style={price}>Loại: {dataProduct.category}</Text>
+                        <Text style={price}>Giá: <Text style={price_product}>{dataProduct.price} VNĐ</Text></Text>
+                        <Text style={price}>Giảm giá: <Text style={sales_product}>{dataProduct.sales} VNĐ</Text></Text>
+                        <HTML html={dataProduct.desc} imagesMaxWidth={Dimensions.get('window').width} />
                         <View style={{justifyContent:'space-between'}}>
                             <TouchableOpacity
                                 style={button}
@@ -86,6 +90,14 @@ class ContentProductDetail extends Component{
         )
     }
 }
+function mapStateToProps(state) {
+    return {
+        url: state.url,
+        token: state.token,
+        route_navigation: state.route_navigation
+    }
+}
+export default connect(mapStateToProps)(ContentProductDetail)
 var contentproductdetail=StyleSheet.create({
     wrapper:{
         flex:9,
@@ -105,7 +117,8 @@ var contentproductdetail=StyleSheet.create({
         width: '95%',
         height: height/4,
         margin: 10,
-        borderWidth: 1
+        borderWidth: 1,
+        resizeMode: 'stretch'
     },
     nameproduct:{
         fontSize: 25,
@@ -145,12 +158,3 @@ var contentproductdetail=StyleSheet.create({
         fontSize: 18
     }
 })
-function mapStateToProps(state) {
-    return {
-        url: state.url,
-        token: state.token,
-        route_navigation: state.route_navigation,
-        idDetailProduct: state.idDetailProduct
-    }
-}
-export default connect(mapStateToProps)(ContentProductDetail)

@@ -13,7 +13,6 @@ import {
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
 import apiGetProduct from '../../api/GetProduct';
-import { setIdDetail } from '../../redux/ActionCreators';
 
 class ContentHome extends Component{
     constructor(props){
@@ -26,14 +25,18 @@ class ContentHome extends Component{
             refreshing: false,
         }
     }
+    getProductApi(){
+        let token=this.props.token;
+        let skip=this.state.skip;
+        let take=this.state.take;
+        let url=this.props.url;
+        return apiGetProduct(url,token,skip,take);
+    }
     componentDidMount(){
         this.setState({
             modalVisible: true
         })
-        let token=this.props.token;
-        let skip=this.state.skip;
-        let take=this.state.take;
-        apiGetProduct(token,skip,take)
+        this.getProductApi()
         .then((res)=>{
             this.setState({
                 list_product: res,
@@ -46,10 +49,7 @@ class ContentHome extends Component{
             refreshing: true,
             skip: 0
         },function(){
-            let token=this.props.token;
-            let skip=this.state.skip;
-            let take=this.state.take;
-            apiGetProduct(token,skip,take)
+            this.getProductApi()
             .then((res)=>{
                 this.setState({
                     list_product: res,
@@ -63,10 +63,7 @@ class ContentHome extends Component{
             refreshing: true,
             skip: this.state.skip+this.state.take
         },function(){
-            let token=this.props.token;
-            let skip=this.state.skip;
-            let take=this.state.take;
-            apiGetProduct(token,skip,take)
+            this.getProductApi()
             .then((res)=>{
                 this.setState({
                     list_product: this.state.list_product.concat(res),
@@ -76,7 +73,6 @@ class ContentHome extends Component{
         });
     }
     goToDeatail(id){
-        this.props.setIdDetail(id);
         this.props.route_navigation.navigate('DetailProdouctScreen',{id: '11'});
     }
     render(){
@@ -94,7 +90,7 @@ class ContentHome extends Component{
                         <View style={item}>
                             <View style={view_image}>
                                 <TouchableOpacity
-                                    onPress={()=> this.goToDeatail(data_item.item.id)}
+                                    onPress={()=> this.props.route_navigation.navigate('DetailProdouctScreen',{id: data_item.item.id})}
                                 >
                                     <Image 
                                         style={image} 
@@ -111,7 +107,7 @@ class ContentHome extends Component{
                                 }
                                 <View style={action}>
                                     <TouchableOpacity
-                                        onPress={()=>console.log('a')}
+                                        onPress={()=> this.props.route_navigation.navigate('DetailProdouctScreen',{id: data_item.item.id})}
                                     >
                                         <Text style={view}>Xem</Text>
                                     </TouchableOpacity>
@@ -141,6 +137,15 @@ class ContentHome extends Component{
         )
     }
 }
+function mapStateToProps(state) {
+    return {
+        url: state.url,
+        token: state.token,
+        route_navigation: state.route_navigation
+    }
+}
+export default connect(mapStateToProps)(ContentHome)
+
 var contenthome=StyleSheet.create({
     wrapper:{
         flex:9,
@@ -215,11 +220,3 @@ var contenthome=StyleSheet.create({
         fontWeight: 'bold'
     }
 })
-function mapStateToProps(state) {
-    return {
-        url: state.url,
-        token: state.token,
-        route_navigation: state.route_navigation
-    }
-}
-export default connect(mapStateToProps,{setIdDetail: setIdDetail})(ContentHome)

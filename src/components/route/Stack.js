@@ -10,7 +10,7 @@ const Stack=StackNavigator({
         screen: ProductDetail
     },
 },{
-    initialRouteName: 'DetailProdouctScreen',
+    initialRouteName: 'HomeScreen',
     headerMode: 'none',
     navigationOptions:{
         headerVisible: false
