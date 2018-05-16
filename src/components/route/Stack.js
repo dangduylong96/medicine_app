@@ -1,6 +1,7 @@
 import { StackNavigator } from 'react-navigation';
 import Home from '../home/Home';
 import ProductDetail from '../product/ProductDetail';
+import Cart from '../cart/Cart';
 
 const Stack=StackNavigator({
     HomeScreen:{
@@ -9,8 +10,11 @@ const Stack=StackNavigator({
     DetailProdouctScreen:{
         screen: ProductDetail
     },
+    CartScreen:{
+        screen: Cart
+    }
 },{
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'CartScreen',
     headerMode: 'none',
     navigationOptions:{
         headerVisible: false

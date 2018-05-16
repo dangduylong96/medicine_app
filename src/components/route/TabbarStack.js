@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Home from '../home/Home';
+import Cart from '../cart/Cart';
 import Stack from '../route/Stack';
 
 const home='../../assets/images/icon/home.png';
@@ -14,7 +15,7 @@ const cart='../../assets/images/icon/cart.png';
 
 const TabbarStack=TabNavigator({
     Home:{
-        screen:Stack,
+        screen: Stack,
         navigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ focused, tintColor }) => {
                 return <Image style={styles.icon} source={require(home)} />
@@ -30,7 +31,7 @@ const TabbarStack=TabNavigator({
         }),
     },
     Cart:{
-        screen:Home,
+        screen:Cart,
         navigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ focused, tintColor }) => {
                 return <Image style={styles.icon} source={require(cart)} />

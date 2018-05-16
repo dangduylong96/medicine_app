@@ -13,6 +13,7 @@ import {
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
 import apiGetProduct from '../../api/GetProduct';
+import { addCart } from '../../redux/ActionCreators';
 
 class ContentHome extends Component{
     constructor(props){
@@ -72,8 +73,8 @@ class ContentHome extends Component{
             })
         });
     }
-    goToDeatail(id){
-        this.props.route_navigation.navigate('DetailProdouctScreen',{id: '11'});
+    addCart(item){
+        this.props.addCart(item);
     }
     render(){
         const { wrapper, item, image, view_image, view_detail, title_pro, cate_pro, sales_pro, action, view, addcart }= contenthome;
@@ -82,6 +83,7 @@ class ContentHome extends Component{
             <View style={wrapper}>
                 <FlatList
                     refreshing={this.state.refreshing}
+                    keyExtractor={(item, index) => index.toString()}
                     onRefresh={()=>this._onRefresh()}
                     onEndReachedThreshold={0.2}
                     onEndReached={()=>this._loadmore()}
@@ -112,7 +114,7 @@ class ContentHome extends Component{
                                         <Text style={view}>Xem</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
-                                        onPress={()=>console.log('a')}
+                                        onPress={()=> this.addCart(data_item.item)}
                                     >
                                         <Text style={addcart}>Mua</Text>
                                     </TouchableOpacity>
@@ -141,10 +143,11 @@ function mapStateToProps(state) {
     return {
         url: state.url,
         token: state.token,
-        route_navigation: state.route_navigation
+        route_navigation: state.route_navigation,
+        cart: state.cart
     }
 }
-export default connect(mapStateToProps)(ContentHome)
+export default connect(mapStateToProps,{addCart: addCart})(ContentHome)
 
 var contenthome=StyleSheet.create({
     wrapper:{
