@@ -57,6 +57,14 @@ class ContentCart extends Component{
         })
         return total.toString().replace(/(.)(?=(\d{3})+$)/g,'$1,');
     }
+    getPriceItem(price,sales){
+        //Bỏ dấu , đi dể tính toán
+        let price_change=price.toString().replace(',','');
+        let sales_change=sales.toString().replace(',','');
+        if(parseInt(sales_change)>0) price_change=parseInt(price_change)-parseInt(sales_change);
+        
+        return price_change.toString().replace(/(.)(?=(\d{3})+$)/g,'$1,');
+    }
     render(){
         const { wrapper, wrapper_list_cart, wrapper_checkout, item, image, view_image, view_detail, view_qty, change, qty, title_pro, cate_pro, sales_pro, delete_pro, checkout, total }= contentcart;
         const { url }= this.props;        
@@ -104,7 +112,7 @@ class ContentCart extends Component{
                                         {
                                             (parseInt(data_item.item.sales)<=0) ? <Text>  </Text>: <Text style={sales_pro}>{data_item.item.sales} VNĐ</Text>
                                         }
-                                        <Text style={cate_pro}>{data_item.item.price-data_item.item.sales} VNĐ</Text>
+                                        <Text style={cate_pro}>{this.getPriceItem(data_item.item.price,(parseInt(data_item.item.sales)<=0) ?0:data_item.item.sales)} VNĐ</Text>
                                     </View>
                                     <TouchableOpacity
                                         onPress={()=> this.props.deleteItemCart(data_item.item.id)}

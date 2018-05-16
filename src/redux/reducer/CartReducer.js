@@ -1,4 +1,19 @@
-const cart=(state=[{key:1,id: 1,name: 'Thông Xoang Tán',image: 'bEa35STTTG618944376037.jpg',price: 30000,sales: 5000,qty: 2}],action)=>{
+import {
+    AsyncStorage
+} from 'react-native';
+save = async (cart) => {
+    try {
+        let data=JSON.stringify(cart);
+        await AsyncStorage.setItem('@MyCart', data);
+    } catch (error) {
+        alert('Bạn chưa kích hoạt quyền cho ứng dụng!!');
+    }
+}
+const cart=(state=[],action)=>{
+    //Lưu lại toàn bộ giỏ hàng
+    if(action.type=='SET_CART'){
+        return action.cart;
+    }
     //Thêm item hoặc tăng giảm
     if(action.type=='ADD_CART'){
         let item=action.item;
@@ -15,7 +30,13 @@ const cart=(state=[{key:1,id: 1,name: 'Thông Xoang Tán',image: 'bEa35STTTG6189
             }
             return e;
         })
-        if(check==1) return result_state;
+        if(check==1){
+            //Lưu vào storage
+            this.save(result_state);
+            return result_state;
+        }
+         //Lưu vào storage
+        this.save(state.concat(item));
         return state.concat(item);
     }
     //Sửa số lượng
@@ -31,6 +52,8 @@ const cart=(state=[{key:1,id: 1,name: 'Thông Xoang Tán',image: 'bEa35STTTG6189
             }
             return item;
         })
+        //Lưu vào storage
+        this.save(state.concat(result_state));
         return result_state;
     }
     //Xóa item
@@ -39,6 +62,8 @@ const cart=(state=[{key:1,id: 1,name: 'Thông Xoang Tán',image: 'bEa35STTTG6189
         let result_state=state.filter((item)=>{
             return item.id!=id
         })
+        //Lưu vào storage
+        this.save(state.concat(result_state));
         return result_state;
     }
     return state;

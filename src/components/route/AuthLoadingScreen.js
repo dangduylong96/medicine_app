@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { saveToken, saveNavigation } from '../../redux/ActionCreators';
+import { saveToken, saveNavigation, setCart } from '../../redux/ActionCreators';
 
 class AuthLoadingScreen extends Component {
   constructor(props) {
@@ -19,6 +19,13 @@ class AuthLoadingScreen extends Component {
     // await AsyncStorage.clear();
     //Lưu cái navigation
     this.props.saveNavigation(this.props.navigation);
+
+    //Lấy giỏ hàng
+    const cart = await AsyncStorage.getItem('@MyCart');
+    if (cart){
+      let data=JSON.parse(cart);
+      this.props.setCart(data);
+    } 
 
     //kiểm tra lần trc có đăng nhập hay chưa?
     const userToken = await AsyncStorage.getItem('@Mytoken');
@@ -49,4 +56,4 @@ function mapStateToProps(state) {
     route_navigation: state.route_navigation
   }
 }
-export default connect(mapStateToProps, {saveToken: saveToken, saveNavigation: saveNavigation})(AuthLoadingScreen)
+export default connect(mapStateToProps, {saveToken: saveToken, saveNavigation: saveNavigation, setCart: setCart})(AuthLoadingScreen)

@@ -37,3 +37,9 @@ export function deleteItemCart(id){
         id: id
     }
 }
+export function setCart(cart){
+    return {
+        type: 'SET_CART',
+        cart: cart
+    }
+}
