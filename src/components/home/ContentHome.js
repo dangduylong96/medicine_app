@@ -151,7 +151,7 @@ export default connect(mapStateToProps,{addCart: addCart})(ContentHome)
 
 var contenthome=StyleSheet.create({
     wrapper:{
-        flex:9,
+        flex:12,
         backgroundColor:'#E0E0E0'
     },
     item:{

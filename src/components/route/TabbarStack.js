@@ -6,6 +6,7 @@ import {
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Home from '../home/Home';
 import Cart from '../cart/Cart';
+import Search from '../search/Search';
 import Stack from '../route/Stack';
 
 const home='../../assets/images/icon/home.png';
@@ -23,7 +24,7 @@ const TabbarStack=TabNavigator({
         }),
     },
     Search:{
-        screen:Home,
+        screen:Search,
         navigationOptions: ({ navigation }) => ({
             tabBarIcon: ({ focused, tintColor }) => {
                 return <Image style={styles.icon} source={require(search)} />

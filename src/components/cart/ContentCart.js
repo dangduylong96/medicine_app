@@ -166,7 +166,7 @@ export default connect(mapStateToProps,{changeQtyItemCart: changeQtyItemCart,add
 
 var contentcart=StyleSheet.create({
     wrapper:{
-        flex:9,
+        flex:12,
         backgroundColor:'#E0E0E0',
         justifyContent:'space-between'
     },
