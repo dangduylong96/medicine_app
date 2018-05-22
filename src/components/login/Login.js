@@ -86,10 +86,8 @@ class Login extends Component {
         })
             .then((res) => res.json())
             .then((resjson) => {
-                console.log(resjson);
                 if (resjson.status == 200) {
                     // Lưu token vào asynstorage của máy
-                    console.log(resjson._token);
                     this.save(resjson._token);
                     //Thay đổi redux toke
                     this.props.saveToken(resjson._token);

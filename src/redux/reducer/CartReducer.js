@@ -63,7 +63,7 @@ const cart=(state=[],action)=>{
             return item.id!=id
         })
         //Lưu vào storage
-        this.save(state.concat(result_state));
+        this.save(result_state);
         return result_state;
     }
     return state;

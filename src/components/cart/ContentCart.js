@@ -9,14 +9,18 @@ import {
     FlatList,
     Modal,
     ActivityIndicator,
-    TextInput
+    TextInput,
+    Alert,
+    AsyncStorage
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import apiGetToken from '../../api/GetToken';
+import apiOrder from '../../api/Order';
 
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
-import { changeQtyItemCart, addCart, deleteItemCart } from '../../redux/ActionCreators';
+import { changeQtyItemCart, addCart, deleteItemCart, setCart } from '../../redux/ActionCreators';
 
 
 class ContentCart extends Component{
@@ -24,9 +28,26 @@ class ContentCart extends Component{
         super(props);
         this.state={
             modalVisible: true,
+            token_laravel: ''
+        }
+    }
+    truncate_cart = async () => {
+        try {
+            await AsyncStorage.removeItem('@MyCart');
+        } catch (error) {
+            alert('Bạn chưa kích hoạt quyền cho ứng dụng!!');
         }
     }
     componentDidMount(){
+        //Lấy token của laravel
+        apiGetToken()
+        .then((res)=>{
+            this.setState({
+                token_laravel: res
+            })
+        })
+        .catch((error)=>console.log('Lỗi rồi'))
+
         this.setState({
             modalVisible: false
         })
@@ -64,6 +85,49 @@ class ContentCart extends Component{
         if(parseInt(sales_change)>0) price_change=parseInt(price_change)-parseInt(sales_change);
         
         return price_change.toString().replace(/(.)(?=(\d{3})+$)/g,'$1,');
+    }
+    //Đặt hàng
+    sendOrder(){
+        Alert.alert(
+            'Đặt hàng',
+            'Bạn có chắc chắn muốn đặt hàng???',
+            [
+              {text: 'Đặt hàng', onPress: () => this.order()},
+              {text: 'Hủy'},
+            ],
+            { cancelable: false }
+        )
+    }
+    order(){
+        this.setState({
+            modalVisible: true
+        })
+        let cart=this.props.cart;
+        let { url, token }=this.props;
+        let data={
+            token: token,
+            cart: cart,
+            _token: this.state.token_laravel
+        };
+        apiOrder(url,data)
+        .then(res=>{
+            if(res.status==200){
+                Alert.alert(
+                    'Thông báo',
+                    'Đơn hàng của bạn đã được đặt',
+                    [
+                      {text: 'OK'}
+                    ]
+                )
+                let remove_cart=[];
+                this.props.setCart(remove_cart);
+                //Xóa storage
+                this.truncate_cart();
+            }
+            this.setState({
+                modalVisible: false
+            })
+        })
     }
     render(){
         const { wrapper, wrapper_list_cart, wrapper_checkout, item, image, view_image, view_detail, view_qty, change, qty, title_pro, cate_pro, sales_pro, delete_pro, checkout, total }= contentcart;
@@ -127,6 +191,7 @@ class ContentCart extends Component{
                 <View style={wrapper_checkout}>
                     <Text style={total}>Tổng tiền: <Text style={{color:'#FF9472'}}>{this.totalPriceCart()} VNĐ</Text></Text>
                     <Button
+                        onPress={()=>this.sendOrder()}
                         icon={
                             <Icon
                             name='home'
@@ -162,7 +227,7 @@ function mapStateToProps(state) {
         cart: state.cart
     }
 }
-export default connect(mapStateToProps,{changeQtyItemCart: changeQtyItemCart,addCart: addCart,deleteItemCart: deleteItemCart})(ContentCart)
+export default connect(mapStateToProps,{changeQtyItemCart: changeQtyItemCart,addCart: addCart,deleteItemCart: deleteItemCart,setCart: setCart})(ContentCart)
 
 var contentcart=StyleSheet.create({
     wrapper:{

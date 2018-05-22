@@ -7,6 +7,7 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Home from '../home/Home';
 import Cart from '../cart/Cart';
 import Search from '../search/Search';
+import UserDetail from '../user_detail/UserDetail';
 import Stack from '../route/Stack';
 
 const home='../../assets/images/icon/home.png';
@@ -18,6 +19,7 @@ const TabbarStack=TabNavigator({
     Home:{
         screen: Stack,
         navigationOptions: ({ navigation }) => ({
+            title: 'Trang Chủ',
             tabBarIcon: ({ focused, tintColor }) => {
                 return <Image style={styles.icon} source={require(home)} />
             },
@@ -26,6 +28,7 @@ const TabbarStack=TabNavigator({
     Search:{
         screen:Search,
         navigationOptions: ({ navigation }) => ({
+            title: 'Tìm kiếm',
             tabBarIcon: ({ focused, tintColor }) => {
                 return <Image style={styles.icon} source={require(search)} />
             },
@@ -34,14 +37,17 @@ const TabbarStack=TabNavigator({
     Cart:{
         screen:Cart,
         navigationOptions: ({ navigation }) => ({
+            title: 'Giỏ hàng',
             tabBarIcon: ({ focused, tintColor }) => {
                 return <Image style={styles.icon} source={require(cart)} />
             },
+            badgeNumber: 19
         }),
     },
     detail:{
-        screen:Home,
+        screen:UserDetail,
         navigationOptions: ({ navigation }) => ({
+            title: 'Cá nhân',
             tabBarIcon: ({ focused, tintColor }) => {
                 return <Image style={styles.icon} source={require(contact)} />
             },

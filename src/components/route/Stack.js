@@ -3,6 +3,7 @@ import Home from '../home/Home';
 import ProductDetail from '../product/ProductDetail';
 import Cart from '../cart/Cart';
 import Search from '../search/Search';
+import UserDetail from '../user_detail/UserDetail';
 
 const Stack=StackNavigator({
     HomeScreen:{
@@ -16,6 +17,9 @@ const Stack=StackNavigator({
     },
     SearchScreen:{
         screen: Search
+    },
+    UserDetailScreen:{
+        screen: UserDetail
     }
 },{
     initialRouteName: 'HomeScreen',
