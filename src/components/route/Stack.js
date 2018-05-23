@@ -14,6 +14,7 @@ const Stack=StackNavigator({
     },
     CartScreen:{
         screen: Cart
+        
     },
     SearchScreen:{
         screen: Search

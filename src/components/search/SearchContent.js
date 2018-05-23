@@ -11,7 +11,7 @@ import {
     ActivityIndicator,
     Picker
 } from 'react-native';
-import { SearchBar, Button  } from 'react-native-elements';
+import { SearchBar, Button, Icon  } from 'react-native-elements';
 
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
@@ -71,7 +71,7 @@ class SearchContent extends Component{
         })
     }
     render(){
-        const { wrapper, wrapper_list_search, container_searchbar, inputstyle_searchbar, style_picker, item, image, view_image, view_detail, title_pro, cate_pro, sales_pro, action, view, addcart, wrapper_search }= searchcontent;
+        const { wrapper, wrapper_list_search, container_searchbar, inputstyle_searchbar, style_picker, item, image, view_image, view_detail, title_pro, cate_pro, sales_pro, action, view, addcart, wrapper_search, sales_label, sales_label1 }= searchcontent;
         const { url }= this.props;    
         let serviceItems = this.state.list_category.map( (e) => {
             return <Picker.Item key={e.id} value={e.id} label={e.name} />
@@ -105,7 +105,7 @@ class SearchContent extends Component{
                     <View>
                         <Button
                             onPress={()=>this.search()}
-                            buttonStyle={{marginBottom: 5,backgroundColor: '#DB612A'}}
+                            buttonStyle={{marginBottom: 5,backgroundColor: '#3385ff'}}
                             icon={{name: 'search'}}
                             title='Tìm kiếm' 
                         />
@@ -132,7 +132,18 @@ class SearchContent extends Component{
                                     <Text style={cate_pro}>Loại: {data_item.item.category}</Text>
                                     <Text style={cate_pro}>Giá: {data_item.item.price} VNĐ</Text>
                                     {
-                                        (parseInt(data_item.item.sales)<=0) ? <Text>  </Text>: <Text style={sales_pro}>Sales: {data_item.item.sales} VNĐ</Text>
+                                        (parseInt(data_item.item.sales)<=0) ?null:(
+                                            <View style={sales_pro}>
+                                                <Icon
+                                                name='burst-sale'
+                                                type='foundation'
+                                                color='#ffcc00' 
+                                                size={40}
+                                                />
+                                                <Text style={sales_label}>Sales: </Text>
+                                                <Text style={sales_label1}>{data_item.item.sales} VNĐ</Text>
+                                            </View>
+                                        )
                                     }
                                     <View style={action}>
                                         <TouchableOpacity
@@ -212,12 +223,13 @@ var searchcontent=StyleSheet.create({
     },
     sales_pro:{
         flexDirection: 'row', 
-        alignSelf: 'flex-start',
-        fontSize: 15,
-        padding: 5,
-        backgroundColor: '#ff9900',
-        color: 'white',
-        borderRadius: 50,
+        alignItems: 'center'
+    },
+    sales_label:{
+        fontWeight: 'bold'
+    },
+    sales_label1:{
+        fontWeight: 'bold',
         textDecorationLine: 'line-through'
     },
     action:{
@@ -231,17 +243,17 @@ var searchcontent=StyleSheet.create({
         paddingRight: width/20,
         backgroundColor: 'transparent',
         justifyContent:'center',
-        color: '#DB612A',
+        color: '#00b359',
         borderRadius: 50,
         borderWidth: 1,
-        borderColor: '#DB612A',
+        borderColor: '#00b359',
         fontWeight: 'bold',
     },
     addcart:{
         padding: width/50,
         paddingLeft: width/20,
         paddingRight: width/20,
-        backgroundColor: '#DB612A',
+        backgroundColor: '#00b359',
         justifyContent:'center',
         color: 'white',
         borderRadius: 50,

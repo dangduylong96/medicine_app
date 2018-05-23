@@ -48,7 +48,6 @@ class UserDetailContent extends Component{
 
         let url=this.props.url;
         let token=this.props.token;
-        console.log(token);
         apiGetDetailUser(url,token)
         .then(res=>{
             this.setState({
@@ -206,7 +205,7 @@ class UserDetailContent extends Component{
                         <Button
                             onPress={()=>this.updateDetail()}
                             icon={{ name: 'save' }}
-                            buttonStyle={{backgroundColor: '#DB612A', marginTop: 20}}
+                            buttonStyle={{backgroundColor: '#00b359', marginTop: 20}}
                             title='Cập nhập'
                         />
                     </View>

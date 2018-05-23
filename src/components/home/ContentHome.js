@@ -10,6 +10,8 @@ import {
     Modal,
     ActivityIndicator
 } from 'react-native';
+import { Icon } from 'react-native-elements';
+
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
 import apiGetProduct from '../../api/GetProduct';
@@ -77,7 +79,7 @@ class ContentHome extends Component{
         this.props.addCart(item);
     }
     render(){
-        const { wrapper, item, image, view_image, view_detail, title_pro, cate_pro, sales_pro, action, view, addcart }= contenthome;
+        const { wrapper, item, image, view_image, view_detail, title_pro, cate_pro, sales_pro, sales_label1, sales_label, action, view, addcart }= contenthome;
         const { url }= this.props;        
         return(
             <View style={wrapper}>
@@ -105,7 +107,18 @@ class ContentHome extends Component{
                                 <Text style={cate_pro}>Loại: {data_item.item.category}</Text>
                                 <Text style={cate_pro}>Giá: {data_item.item.price} VNĐ</Text>
                                 {
-                                    (parseInt(data_item.item.sales)<=0) ? <Text>  </Text>: <Text style={sales_pro}>Sales: {data_item.item.sales} VNĐ</Text>
+                                    (parseInt(data_item.item.sales)<=0) ?null:( 
+                                        <View style={sales_pro}>
+                                            <Icon
+                                            name='burst-sale'
+                                            type='foundation'
+                                            color='#ffcc00' 
+                                            size={40}
+                                            />
+                                            <Text style={sales_label}>Sales: </Text>
+                                            <Text style={sales_label1}>{data_item.item.sales} VNĐ</Text>
+                                        </View>
+                                    )
                                 }
                                 <View style={action}>
                                     <TouchableOpacity
@@ -187,12 +200,13 @@ var contenthome=StyleSheet.create({
     },
     sales_pro:{
         flexDirection: 'row', 
-        alignSelf: 'flex-start',
-        fontSize: 15,
-        padding: 5,
-        backgroundColor: '#ff9900',
-        color: 'white',
-        borderRadius: 50,
+        alignItems: 'center'
+    },
+    sales_label:{
+        fontWeight: 'bold'
+    },
+    sales_label1:{
+        fontWeight: 'bold',
         textDecorationLine: 'line-through'
     },
     action:{
@@ -206,17 +220,17 @@ var contenthome=StyleSheet.create({
         paddingRight: width/20,
         backgroundColor: 'transparent',
         justifyContent:'center',
-        color: '#DB612A',
+        color: '#00b359',
         borderRadius: 50,
         borderWidth: 1,
-        borderColor: '#DB612A',
+        borderColor: '#00b359',
         fontWeight: 'bold',
     },
     addcart:{
         padding: width/50,
         paddingLeft: width/20,
         paddingRight: width/20,
-        backgroundColor: '#DB612A',
+        backgroundColor: '#00b359',
         justifyContent:'center',
         color: 'white',
         borderRadius: 50,

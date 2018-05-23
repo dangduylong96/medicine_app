@@ -18,6 +18,7 @@ import apiGetToken from '../../api/GetToken';
 
 var { height, width } = Dimensions.get('window');
 class Register extends Component{
+    static navigationOptions = { header: null }
     constructor(props){
         super(props);
         this.state={

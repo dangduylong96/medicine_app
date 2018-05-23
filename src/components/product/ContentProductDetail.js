@@ -17,6 +17,7 @@ import HTML from 'react-native-render-html';
 var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
 import apiGetDetailProduct from '../../api/GetDetailProduct';
+import { addCart } from '../../redux/ActionCreators';
 
 class ContentProductDetail extends Component{
     constructor(props){
@@ -40,6 +41,9 @@ class ContentProductDetail extends Component{
                 modalVisible: false
             })
         })
+    }
+    addCart(item){
+        this.props.addCart(item);
     }
     render(){
         const { wrapper, content, image, nameproduct, price, price_product, sales_product, add_cart, button }= contentproductdetail;
@@ -66,7 +70,7 @@ class ContentProductDetail extends Component{
                         <View style={{justifyContent:'space-between'}}>
                             <TouchableOpacity
                                 style={button}
-                                onPress={()=>console.log('a')}
+                                onPress={()=> this.addCart(dataProduct)}
                             >
                                 <Text style={add_cart}>Thêm vào giỏ hàng</Text>
                             </TouchableOpacity>
@@ -97,7 +101,7 @@ function mapStateToProps(state) {
         route_navigation: state.route_navigation
     }
 }
-export default connect(mapStateToProps)(ContentProductDetail)
+export default connect(mapStateToProps,{addCart: addCart})(ContentProductDetail)
 var contentproductdetail=StyleSheet.create({
     wrapper:{
         flex:12,

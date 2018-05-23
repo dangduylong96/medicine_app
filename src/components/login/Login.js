@@ -18,11 +18,12 @@ import apiGetToken from '../../api/GetToken';
 
 var { height, width } = Dimensions.get('window');
 class Login extends Component {
+    static navigationOptions = { header: null }
     constructor(props) {
         super(props);
         this.state = {
-            username: 'long02',
-            password: '1',
+            username: '',
+            password: '',
             modalVisible: false,
             _token: ''
         }

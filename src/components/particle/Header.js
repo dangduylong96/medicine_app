@@ -33,7 +33,7 @@ var header=StyleSheet.create({
         flexDirection:'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor:'#DB612A'
+        backgroundColor:'#00b359'
     },
     icon:{
         width: width/10,

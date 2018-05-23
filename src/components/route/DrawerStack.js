@@ -4,6 +4,7 @@ import {
     Dimensions
 } from 'react-native';
 import TabbarStack from './TabbarStack';
+import singleStack from './SingleStack';
 import Menu from '../menu/Menu';
 import Home from '../home/Home';
 
