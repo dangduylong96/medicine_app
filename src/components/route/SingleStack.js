@@ -4,6 +4,7 @@ import Login from '../login/Login';
 import Register from '../login/Register';
 import Order from '../order/Order';
 import OrderDetail from '../order/OrderDetail';
+import New from '../new_product/New';
 import BackIcon from '../particle/BackIcon';
 
 const singleStack=StackNavigator({
@@ -39,7 +40,21 @@ const singleStack=StackNavigator({
                 backgroundColor: '#00b359'
             }
         }
-    }
+    },
+    NewProductScreen:{
+        screen: New,
+        navigationOptions:{
+            title: 'Sản phẩm mới',
+            headerTintColor: 'white',
+            headerTitleStyle: {
+                color: 'white'
+            },
+            headerLeft: ()=><BackIcon />,
+            headerStyle :{
+                backgroundColor: '#00b359'
+            }
+        }
+    },
 },{
     initialRouteName:'loginscreen'
 })

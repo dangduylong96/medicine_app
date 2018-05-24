@@ -43,3 +43,8 @@ export function setCart(cart){
         cart: cart
     }
 }
+export function checkViewNew(){
+    return {
+        type: 'CHECK_VIEW'
+    }
+}

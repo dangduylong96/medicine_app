@@ -17,102 +17,33 @@ var { height, width } = Dimensions.get('window');
 import { connect } from 'react-redux';
 import apiGetProduct from '../../api/GetProduct';
 import apiGetNewProduct from '../../api/GetNewProduct';
-import { addCart, checkViewNew } from '../../redux/ActionCreators';
+import { addCart } from '../../redux/ActionCreators';
 
-class ContentHome extends Component{
+class NewContent extends Component{
     constructor(props){
         super(props);
         this.state={
-            skip: 0,
-            take: 5,
             list_product:[],
-            modalVisible: false,
-            refreshing: false
+            modalVisible: true
         }
     }
-    getProductApi(){
-        let token=this.props.token;
-        let skip=this.state.skip;
-        let take=this.state.take;
-        let url=this.props.url;
-        return apiGetProduct(url,token,skip,take);
-    }
     componentDidMount(){
+        let data=this.props.route_navigation.state.params.data;
         this.setState({
-            modalVisible: true
+            list_product: data,
+            modalVisible: false
         })
-        this.getProductApi()
-        .then((res)=>{
-            this.setState({
-                list_product: res,
-                modalVisible: false
-            })
-        })
-    }
-    componentWillMount(){
-        let url=this.props.url;
-        //Kiểm tra có sản phẩm mới không
-        apiGetNewProduct(url)
-        .then(res=>{
-            let qty_new=parseInt(res.total);
-            let data=res.data;
-            let viewnew=this.props.viewnew;
-            if(qty_new>0 && viewnew==0){
-                this.props.checkViewNew();
-                Alert.alert(
-                    'Thông báo',
-                    'Có '+qty_new+' sản phẩm vừa được thêm',
-                    [
-                        {text: 'Xem ngay', onPress: () => this.props.route_navigation.navigate('NewProductScreen',{data: data})},
-                        {text: 'Để sau'},
-                      ],
-                      { cancelable: false }
-                )
-            }
-        })
-    }
-    _onRefresh(){
-        this.setState({
-            refreshing: true,
-            skip: 0
-        },function(){
-            this.getProductApi()
-            .then((res)=>{
-                this.setState({
-                    list_product: res,
-                    refreshing: false
-                })
-            })
-        })
-    }
-    _loadmore(){
-        this.setState({
-            refreshing: true,
-            skip: this.state.skip+this.state.take
-        },function(){
-            this.getProductApi()
-            .then((res)=>{
-                this.setState({
-                    list_product: this.state.list_product.concat(res),
-                    refreshing: false
-                })
-            })
-        });
     }
     addCart(item){
         this.props.addCart(item);
     }
     render(){
-        const { wrapper, item, image, view_image, view_detail, title_pro, cate_pro, sales_pro, sales_label1, sales_label, action, view, addcart }= contenthome;
+        const { wrapper, item, image, view_image, view_detail, title_pro, cate_pro, sales_pro, sales_label1, sales_label, action, view, addcart }= newcontent;
         const { url }= this.props;        
         return(
             <View style={wrapper}>
                 <FlatList
-                    refreshing={this.state.refreshing}
                     keyExtractor={(item, index) => index.toString()}
-                    onRefresh={()=>this._onRefresh()}
-                    onEndReachedThreshold={0.2}
-                    onEndReached={()=>this._loadmore()}
                     data={this.state.list_product}
                     renderItem={(data_item)=>
                         <View style={item}>
@@ -181,13 +112,12 @@ function mapStateToProps(state) {
         url: state.url,
         token: state.token,
         route_navigation: state.route_navigation,
-        cart: state.cart,
-        viewnew: state.viewnew
+        cart: state.cart
     }
 }
-export default connect(mapStateToProps,{addCart: addCart, checkViewNew: checkViewNew})(ContentHome)
+export default connect(mapStateToProps,{addCart: addCart})(NewContent)
 
-var contenthome=StyleSheet.create({
+var newcontent=StyleSheet.create({
     wrapper:{
         flex:12,
         backgroundColor:'#E0E0E0'

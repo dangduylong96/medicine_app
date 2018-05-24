@@ -169,39 +169,3 @@ var ordercontent=StyleSheet.create({
         flex: 1
     }
 })
-// <View style={content}>
-//     <View style={{margin: 5, marginLeft: 10, flex: 1}}>
-//         <View style={content_header}>
-//             <View style={code}>
-//                 <Text style={title_header}>Mã đơn</Text>
-//                 <Text style={title_value}>10</Text>
-//             </View>
-//             <View style={date}>
-//                 <Text style={title_header}>Ngày đặt</Text>
-//                 <Text style={title_value}>23/05/2018</Text>
-//             </View>
-//             <View style={total}>
-//                 <Text style={title_header}>Tổng tiền</Text>
-//                 <Text style={title_value}>17,000,000 VNĐ</Text>
-//             </View>
-//         </View>
-//         <View style={content_status}>
-//             <Text style={{marginRight: 5}}>Trạng thái: </Text>
-//             <Icon
-//                 name='pin'
-//                 type='entypo'
-//                 color='#3366ff'
-//                 containerStyle={{marginRight: 3}}
-//             />
-//             <Text style={{color: '#3366ff'}}>Đã giao</Text>
-//         </View>
-//         <View style={content_button}>
-//             <Button
-//                 onPress={()=>console.log('a')}
-//                 icon={{ name: 'eye', type: 'entypo' }}
-//                 buttonStyle={{backgroundColor: '#00b359'}}
-//                 title='Xem'
-//             />
-//         </View>
-//     </View>
-// </View>

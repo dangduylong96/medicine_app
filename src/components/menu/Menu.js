@@ -5,6 +5,7 @@ import {
     StyleSheet,
     AsyncStorage
 } from 'react-native';
+import apiGetNewProduct from '../../api/GetNewProduct';
 import { Icon } from 'react-native-elements';
 import { Button } from 'react-native-elements';
 
@@ -14,6 +15,14 @@ class Menu extends Component{
     logOut=async ()=>{
         await AsyncStorage.clear();
         this.props.navigation.navigate('loginscreen')
+    }
+    newProduct(){
+        let url=this.props.url;
+        apiGetNewProduct(url)
+        .then(res=>{
+            let data=res.data;
+            this.props.navigation.navigate('NewProductScreen',{data: data})
+        })
     }
     render(){
         const { header, content, icon, button }=menu;
@@ -38,6 +47,13 @@ class Menu extends Component{
                     />
                     <Button
                         buttonStyle={button}
+                        icon={{ name: 'new', color:'#00b359', type:'entypo'}}
+                        title='Sản phẩm mới'
+                        textStyle={{color: '#00b359'}}
+                        onPress={()=>this.newProduct()}
+                    />
+                    <Button
+                        buttonStyle={button}
                         icon={{name: 'sign-out', type: 'font-awesome', color:'#00b359'}}
                         title='Đăng xuất'
                         textStyle={{color: '#00b359'}}
@@ -48,6 +64,12 @@ class Menu extends Component{
         )
     }
 }
+function mapStateToProps(state) {
+    return {
+        url: state.url
+    }
+}
+export default connect(mapStateToProps)(Menu)
 var menu=StyleSheet.create({
     header:{
         flex: 1,
@@ -67,4 +89,3 @@ var menu=StyleSheet.create({
         backgroundColor: 'white'
     }
 })
-export default connect()(Menu)
