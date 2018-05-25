@@ -16,7 +16,7 @@ class AuthLoadingScreen extends Component {
   }
 
   _bootstrapAsync = async () => {
-    // await AsyncStorage.clear();
+    await AsyncStorage.clear();
     //Lưu cái navigation
     this.props.saveNavigation(this.props.navigation);
 

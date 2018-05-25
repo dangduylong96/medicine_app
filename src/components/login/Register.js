@@ -129,8 +129,8 @@ class Register extends Component{
         return(
             <View style={wrapper}>
             <ScrollView contentContainerStyle={{flexGrow : 1, justifyContent : 'center'}}>
-                <Text style={tittle}>MEDICINE</Text>                
-                <Text style={tittle2}>PHARMACY</Text>                
+                <Text style={tittle}>OLINE</Text>                
+                <Text style={tittle2}>PHARMA</Text>                
                 <TextInput
                     style={input}
                     underlineColorAndroid="transparent"

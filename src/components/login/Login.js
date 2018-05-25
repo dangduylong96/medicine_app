@@ -108,8 +108,8 @@ class Login extends Component {
         const { wrapper, input, button, textbutton, button2, textbutton2, tittle, tittle2 } = login;
         return (
             <View style={wrapper}>
-                <Text style={tittle}>MEDICINE</Text>
-                <Text style={tittle2}>PHARMACY</Text>
+                <Text style={tittle}>ONLINE</Text>
+                <Text style={tittle2}>PHARMA</Text>
                 <TextInput
                     style={input}
                     underlineColorAndroid="transparent"

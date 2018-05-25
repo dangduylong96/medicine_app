@@ -21,7 +21,7 @@ class Header extends Component{
                 >
                     <Image style={icon} source={require(ic_menu)} />
                 </TouchableOpacity>
-                <Text style={text}>MEDICINE PHARMACY</Text>
+                <Text style={text}>ONLINE PHARMA</Text>
                 <View style={{width: width/6}} />
             </View>
         )
@@ -42,7 +42,8 @@ var header=StyleSheet.create({
     text:{
         fontSize: 20,
         fontWeight: 'bold',
-        color:'white'
+        color:'white',
+        letterSpacing: 6
     }
 })
 function mapStateToProps(state) {

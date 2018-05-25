@@ -53,7 +53,7 @@ class ContentProductDetail extends Component{
             <View style={wrapper}>
                 <View style={content}>
                     <Header
-                        leftComponent={{ icon: 'arrow-back', color: 'black', onPress: () => route_navigation.goBack()}}
+                        leftComponent={{ icon: 'arrow-back', color: 'black', onPress: () => route_navigation.navigate('HomeScreen')}}
                         rightComponent={{ icon: 'shopping-cart', color: 'black' }}
                         backgroundColor="white"
                     />

@@ -1,4 +1,4 @@
-const url='http://10.0.3.2:90/medicine_server';
+const url='http://muabanthuoc.000webhostapp.com';
 
 function apiGetToken() {
     return fetch(url+'/getToken')

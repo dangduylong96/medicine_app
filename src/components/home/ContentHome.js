@@ -61,7 +61,7 @@ class ContentHome extends Component{
                 this.props.checkViewNew();
                 Alert.alert(
                     'Thông báo',
-                    'Có '+qty_new+' sản phẩm vừa được thêm',
+                    'Có '+qty_new+' sản phẩm mới. Bạn có muốn xem ngay?',
                     [
                         {text: 'Xem ngay', onPress: () => this.props.route_navigation.navigate('NewProductScreen',{data: data})},
                         {text: 'Để sau'},
