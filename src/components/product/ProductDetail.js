@@ -3,7 +3,6 @@ import {
     View,
     StyleSheet
 } from 'react-native';
-import Header from '../particle/Header';
 import ContentProductDetail from './ContentProductDetail';
 import { saveNavigation } from '../../redux/ActionCreators';
 
@@ -17,7 +16,6 @@ class ProductDetail extends Component{
         const { wrapper, content }= home;
         return(
             <View style={wrapper}>
-                <Header />
                 <ContentProductDetail />
             </View>
         )

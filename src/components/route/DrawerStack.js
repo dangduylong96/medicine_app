@@ -6,7 +6,6 @@ import {
 import TabbarStack from './TabbarStack';
 import singleStack from './SingleStack';
 import Menu from '../menu/Menu';
-import Home from '../home/Home';
 
 var { height, width } = Dimensions.get('window');
 const DrawerStack=DrawerNavigator({

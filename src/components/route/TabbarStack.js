@@ -4,7 +4,6 @@ import {
     StyleSheet
 } from 'react-native';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
-import Home from '../home/Home';
 import Cart from '../cart/Cart';
 import Search from '../search/Search';
 import UserDetail from '../user_detail/UserDetail';

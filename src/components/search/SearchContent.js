@@ -236,7 +236,7 @@ var searchcontent=StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'space-around',
         paddingTop: 5,
-        marginTop: 10
+        marginBottom: 10
     },
     view:{
         padding: width/50,
