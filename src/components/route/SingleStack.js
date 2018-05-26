@@ -5,10 +5,16 @@ import Register from '../login/Register';
 
 const singleStack=StackNavigator({
     loginscreen:{
-        screen:Login
+        screen:Login,
+        navigationOptions:{
+            header: null 
+        }
     },
     Registerscreen:{
-        screen:Register
+        screen:Register,
+        navigationOptions:{
+            header: null 
+        }
     }
 },{
     initialRouteName:'loginscreen'

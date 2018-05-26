@@ -12,9 +12,6 @@ import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 var { height, width } = Dimensions.get('window');
 class Menu extends Component{
-    componentDidMount(){
-        console.log(this.props.navigation);
-    }
     logOut=async ()=>{
         await AsyncStorage.clear();
         this.props.navigation.navigate('loginscreen')

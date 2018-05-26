@@ -18,7 +18,6 @@ import apiGetToken from '../../api/GetToken';
 
 var { height, width } = Dimensions.get('window');
 class Login extends Component {
-    static navigationOptions = { header: null }
     constructor(props) {
         super(props);
         this.state = {
@@ -31,17 +30,17 @@ class Login extends Component {
     }
     //Lấy mã xác nhận
     componentDidMount() {
-        apiGetToken()
-            .then((res) => {
-                this.setState({
-                    _token: res
-                })
-            })
-            .catch((error) => {
-                this.setState({
-                    _token: ''
-                })
-            })
+        // apiGetToken()
+        // .then((res) => {
+        //     this.setState({
+        //         _token: res
+        //     })
+        // })
+        // .catch((error) => {
+        //     this.setState({
+        //         _token: ''
+        //     })
+        // })
     }
     errorValidate(message) {
         this.setState({
@@ -64,27 +63,86 @@ class Login extends Component {
         }
     }
     login() {
-        this.setState({
-            modalVisible: true
-        })
+        // apiGetToken()
+        // .then((res) => {
+        //     console.log(res);
+        //     this.setState({
+        //         _token: res
+        //     })
+        // })
+        // .then(()=>{
+        //     // this.setState({
+        //     //     modalVisible: true
+        //     // })
+        //     const { username, password } = this.state;
+        //     const { url } = this.props;
+        //     //Kiểm tra dữ liệu
+        //     if (username == '') return this.errorValidate('Bạn chưa nhập tên tài khoản');
+        //     if (password == '') return this.errorValidate('Bạn chưa nhập mật khẩu');
+        //     let data=JSON.stringify({
+        //         username: username,
+        //         password: password,
+        //         _token: this.state._token
+        //     });
+        //     console.log(data);
+        //     fetch(url + '/app-login', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             username: username,
+        //             password: password,
+        //             _token: this.state._token
+        //         })
+        //     })
+        //     .then((res) => res.json())
+        //     .then((resjson) => {
+        //         if (resjson.status == 200) {
+        //             // Lưu token vào asynstorage của máy
+        //             this.save(resjson._token);
+        //             //Thay đổi redux toke
+        //             this.props.saveToken(resjson._token);
+        //             this.props.navigation.navigate('TabbarDrawer');
+        //         } else {
+        //             this.errorValidate('Tên đăng nhập hoặc mật khẩu không chính xác')
+        //         }
+        //         this.setState({
+        //             modalVisible: false
+        //         })
+        //     })
+        //     .catch((error) => {
+        //         this.errorValidate('Tên đăng nhập hoặc mật khẩu không chính xác')
+        //     })
+        // })
+        // .catch((error) => {
+        //     this.setState({
+        //         _token: ''
+        //     })
+        // })
         const { username, password } = this.state;
-        const { url } = this.props;
-        //Kiểm tra dữ liệu
-        if (username == '') return this.errorValidate('Bạn chưa nhập tên tài khoản');
-        if (password == '') return this.errorValidate('Bạn chưa nhập mật khẩu');
-
-        fetch(url + '/app-login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+            const { url } = this.props;
+            //Kiểm tra dữ liệu
+            if (username == '') return this.errorValidate('Bạn chưa nhập tên tài khoản');
+            if (password == '') return this.errorValidate('Bạn chưa nhập mật khẩu');
+            let data=JSON.stringify({
                 username: username,
-                password: password,
-                _token: this.state._token
+                password: password
+            });
+            console.log(data);
+            fetch(url + '/app-login', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                    // _token: this.state._token
+                })
             })
-        })
             .then((res) => res.json())
             .then((resjson) => {
                 if (resjson.status == 200) {
