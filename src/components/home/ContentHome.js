@@ -189,13 +189,13 @@ export default connect(mapStateToProps,{addCart: addCart, checkViewNew: checkVie
 
 var contenthome=StyleSheet.create({
     wrapper:{
-        flex:12,
+        flex:10,
         backgroundColor:'#E0E0E0'
     },
     item:{
         flexDirection: 'row',
         // borderWidth: 1,
-        height: height/4,
+        height: 'auto',
         justifyContent:'space-around',
         marginTop: width/70,
         marginBottom: 0,
@@ -216,7 +216,7 @@ var contenthome=StyleSheet.create({
         height: height/5
     },
     title_pro:{
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
     },
     cate_pro:{
@@ -237,7 +237,8 @@ var contenthome=StyleSheet.create({
     action:{
         flexDirection: 'row',
         justifyContent:'space-around',
-        paddingTop: 5
+        paddingTop: 5,
+        marginBottom: 10
     },
     view:{
         padding: width/50,

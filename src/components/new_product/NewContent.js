@@ -119,13 +119,13 @@ export default connect(mapStateToProps,{addCart: addCart})(NewContent)
 
 var newcontent=StyleSheet.create({
     wrapper:{
-        flex:12,
+        flex:10,
         backgroundColor:'#E0E0E0'
     },
     item:{
         flexDirection: 'row',
         // borderWidth: 1,
-        height: height/4,
+        height: 'auto',
         justifyContent:'space-around',
         marginTop: width/70,
         marginBottom: 0,
@@ -167,7 +167,8 @@ var newcontent=StyleSheet.create({
     action:{
         flexDirection: 'row',
         justifyContent:'space-around',
-        paddingTop: 5
+        paddingTop: 5,
+        marginBottom: 10
     },
     view:{
         padding: width/50,

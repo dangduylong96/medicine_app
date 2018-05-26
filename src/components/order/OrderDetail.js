@@ -109,7 +109,7 @@ var order_detail=StyleSheet.create({
 })
 var content_order_detail=StyleSheet.create({
     wrapper:{
-        flex:12,
+        flex:10,
         backgroundColor:'#E0E0E0',
         justifyContent:'space-between'
     },
@@ -118,7 +118,7 @@ var content_order_detail=StyleSheet.create({
     },
     item:{
         flexDirection: 'row',
-        height: height/4,
+        height: 'auto',
         justifyContent:'space-around',
         marginTop: width/70,
         marginBottom: 0,

@@ -104,7 +104,7 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps,{addCart: addCart})(ContentProductDetail)
 var contentproductdetail=StyleSheet.create({
     wrapper:{
-        flex:12,
+        flex:10,
         backgroundColor:'#E0E0E0',
         justifyContent: 'center',
         alignItems: 'center'

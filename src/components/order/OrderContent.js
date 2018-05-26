@@ -124,7 +124,7 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(OrderContent)
 var ordercontent=StyleSheet.create({
     wrapper:{
-        flex:12,
+        flex:10,
         backgroundColor:'#E0E0E0',
         alignItems: 'center'
     },
@@ -132,7 +132,7 @@ var ordercontent=StyleSheet.create({
         width: width*0.98,
         backgroundColor:'white',
         marginTop: height/120,
-        height: height/4
+        height: 'auto'
     },
     content_header:{
         flexDirection: 'row',

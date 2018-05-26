@@ -190,12 +190,12 @@ export default connect(mapStateToProps,{addCart: addCart})(SearchContent)
 
 var searchcontent=StyleSheet.create({
     wrapper:{
-        flex:12,
+        flex:10,
         backgroundColor:'#E0E0E0'
     },
     item:{
         flexDirection: 'row',
-        height: height/4,
+        height: 'auto',
         justifyContent:'space-around',
         marginTop: width/70,
         marginBottom: 0,
@@ -235,7 +235,8 @@ var searchcontent=StyleSheet.create({
     action:{
         flexDirection: 'row',
         justifyContent:'space-around',
-        paddingTop: 5
+        paddingTop: 5,
+        marginTop: 10
     },
     view:{
         padding: width/50,

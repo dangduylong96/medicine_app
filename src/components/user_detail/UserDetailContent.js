@@ -259,8 +259,7 @@ var userdetailcontent=StyleSheet.create({
         color: '#9999ff'
     },
     input_label:{
-        borderWidth: 0,
-        height: height/18
+        borderWidth: 0
     },
     inputdate:{
         width: '100%',
